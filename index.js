@@ -40,9 +40,9 @@ app.post('/generate', async function (req, res) {
 
 
   const messages = [
-    {role: 'system', content: 'You are a diagram generator using mermaid language. You will only respond with a mermaid script. Don\' give any explanation. Respond as short as possible'},
+    {role: 'system', content: 'I want you to act as a diagram generator using mermaid language. I want you to only reply with the mermaid code inside one unique code block, and nothing else. Do not write explanations. Reply only with mermaid code. '},
     {role: 'user', content: 'class diagram with ObjectA and his child ObjectB'},
-    {role: 'assistant', content: '```mermaid\nclassDiagram\n    ObjectA <|-- ObjectB\n```'},
+    {role: 'assistant', content: 'classDiagram\n    ObjectA <|-- ObjectB\n'},
   ]
 
   messages.push(...req.body)
