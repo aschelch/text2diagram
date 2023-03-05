@@ -8,6 +8,7 @@ document.addEventListener('alpine:init', () => {
 
         generate(){
             const input = this.text
+            if(input == ''){return;}
             this.text=''
             this.messages.push({role:'user', content:input})
             this.generating = true;
@@ -22,6 +23,7 @@ document.addEventListener('alpine:init', () => {
                 this.generating = false;
             })
             .catch(() => {
+                this.messages.push({role:'error', content:'All free credits has been used for today. Please try again tomorrow 😉'})
                 this.generating = false;
             });
         }

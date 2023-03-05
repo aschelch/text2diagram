@@ -9,6 +9,12 @@ const openai = new OpenAIApi(new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 }))
 
+import {FastRateLimit} from 'fast-ratelimit';
+var limiter = new FastRateLimit({
+  threshold : 50, 
+  ttl       : 24*60*60
+});
+
 const app = express()
 const port = 3000
 
@@ -22,7 +28,11 @@ app.get('/', async function (req, res) {
 });
 
 app.post('/generate', async function (req, res) {
-  
+
+  if(limiter.consumeSync('global') !== true){
+    return res.sendStatus(429);
+  }
+
   const messages = [
     {role: 'system', content: 'You are a diagram generator using mermaid language. You will only respond with a mermaid script. Don\' give any explanation. Respond as short as possible'},
     {role: 'user', content: 'class diagram with ObjectA and his child ObjectB'},

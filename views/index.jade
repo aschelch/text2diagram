@@ -26,9 +26,9 @@ html(lang="en" data-theme="garden").h-full
                 .grow.p-5
                     .chat.chat-start
                         .chat-bubble.chat-bubble-secondary 
-                            | Hello 👋
-                            | Please describe me the diagram you want me to generate.
-                            | I can create class diagrams, state digrams, mindmaps, gant... Just try tell me 😉
+                            | Hello 👋 <br>
+                            | I'm a chatbot that can create class diagrams, state diagrams, mindmaps, gant...
+                            | Please describe me the diagram you want me to generate for you 🤓<br>
                     template(x-for="m in messages")
                         div
                             .chat.chat-end(x-show="m.role=='user'")
@@ -36,6 +36,8 @@ html(lang="en" data-theme="garden").h-full
                             .chat.chat-start(x-show="m.role=='assistant'")
                                 .chat-bubble.chat-bubble-secondary
                                     pre.mermaid(x-text='m.content' x-ref="mermaid")
+                            .chat.chat-start(x-show="m.role=='error'")
+                                .chat-bubble.chat-bubble-error(x-text='m.content')
                 .grow-0.flex.p-5
                     textarea.textarea.textarea-bordered.grow(placeholder="Sequence diagram between Alice and Bob talking", x-model="text", row=3)
                     button.btn.btn-primary.ml-5(@click="generate" x-bind:aria-busy="generating" x-html="generating?'Generating...':'Generate'")
