@@ -1,0 +1,37 @@
+doctype html
+html(lang="en" data-theme="garden").h-full
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(href='https://cdn.jsdelivr.net/npm/daisyui@2.51.3/dist/full.css' rel='stylesheet' type='text/css')
+        script(src='https://cdn.tailwindcss.com')
+        script(src="https://cdn.jsdelivr.net/npm/mermaid@9.3.0/dist/mermaid.min.js")
+        title Text2Diagram | Generate diagram using AI
+    body.h-full(x-data="app" x-init="$watch('messages', () => {$refs.mermaid.removeAttribute('data-processed');mermaid.init(undefined, $refs.mermaid);});")
+        .flex.flex-col.h-full
+            .navbar.bg-primary.text-primary-content
+                a.btn.btn-ghost.normal-case.text-xl Text2Diagram
+                | Generate diagram using AI
+            .grow.p-5
+                .chat.chat-start
+                    .chat-bubble.chat-bubble-secondary 
+                        | Hello 👋
+                        | Please describe me the diagram you want me to generate.
+                        | I can create class diagrams, state digrams, mindmaps, gant... Just try tell me 😉
+                template(x-for="m in messages")
+                    div
+                        .chat.chat-end(x-show="m.role=='user'")
+                            .chat-bubble.chat-bubble-primary(x-text="m.content")
+                        .chat.chat-start(x-show="m.role=='assistant'")
+                            .chat-bubble.chat-bubble-secondary
+                                pre.mermaid(x-text='m.content' x-ref="mermaid")
+            .grow-0.flex.p-5
+                textarea.textarea.textarea-bordered.grow(placeholder="Sequence diagram between Alice and Bob talking", x-model="text", row=3)
+                button.btn.btn-primary.ml-5(@click="generate" x-bind:aria-busy="generating" x-html="generating?'Generating...':'Generate'")
+            footer.footer.footer-center.p-4.bg-primary.text-primary-content
+                div
+                    p Made with <span style="color:red">❤️</span> by <a href="https://twitter.com/aschelch" class="font-bold">@aschelch</a> from <a class="font-bold" href="https://orelfactory.fr?ref=text2diagram">OrelFactory</a>
+            
+        script(src="app.js")
+        script(src="//unpkg.com/alpinejs") 
