@@ -2,10 +2,6 @@ import express from 'express';
 import bodyParser from 'body-parser'
 import {Configuration, OpenAIApi} from 'openai'
 
-import livereload from 'livereload'
-const liveReloadServer = livereload.createServer({extraExts: ['jade']});
-liveReloadServer.watch(['./public', './views']);
-
 import * as dotenv from 'dotenv'
 dotenv.config()
 
