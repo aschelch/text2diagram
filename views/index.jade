@@ -34,12 +34,15 @@ html(lang="en" data-theme="garden").h-full
                             .chat.chat-end(x-show="m.role=='user'")
                                 .chat-bubble.chat-bubble-primary(x-text="m.content")
                             .chat.chat-start(x-show="m.role=='assistant'")
-                                .chat-bubble.chat-bubble-secondary
+                                .chat-bubble.chat-bubble-secondary(class="w-2/3")
                                     pre.mermaid(x-text='m.content' x-ref="mermaid")
+                                    div(x-data='{code:false}')
+                                        p.text-right.text-xs.cursor-pointer.opacity-60(@click='code=!code' x-text="code?'Hide code':'Show code'") 
+                                        pre.p-1.bg-secondary-focus.overflow-auto(x-show="code" x-text='m.content')
                             .chat.chat-start(x-show="m.role=='error'")
                                 .chat-bubble.chat-bubble-error(x-text='m.content')
                 .grow-0.flex.p-5
-                    textarea.textarea.textarea-bordered.grow(placeholder='class diagram of "Paul" and is child "Tom" and his sister "Ana"', x-model="text", row=3)
+                    textarea.textarea.textarea-bordered.grow(placeholder='Describe the diagram you want to generate in plain english', x-model="text", row=3)
                     button.btn.btn-primary.ml-5.umami--click--generate(@click="generate" x-bind:aria-busy="generating" x-html="generating?'Generating...':'Generate'")
             
             footer.footer.footer-center.p-4.bg-primary.text-primary-content

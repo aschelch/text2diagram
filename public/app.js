@@ -3,7 +3,7 @@ mermaid.initialize({ startOnLoad: true });
 document.addEventListener('alpine:init', () => {
     Alpine.data('app', () => ({
         generating: false,
-        text:'a class diagram of "Paul" and is child "Tom"',
+        text:'',
         messages: [],
         init(){
             this.$watch('messages', () => {
@@ -11,6 +11,15 @@ document.addEventListener('alpine:init', () => {
                 mermaid.init(undefined, this.$refs.mermaid)
                 this.scrollBottom()
             })
+
+            const examples = [
+                'a class diagram of "Paul" and his child "Tom"',
+                'a state diagram of a coffee machine',
+                'a sequence diagram of Alice and Bob joking about developers',
+                'a gannt diagram of my new project "My awesome project", with 3 tasks (Spec, Dev, test) starting on 1st of April',
+            ]
+            this.text = examples[Math.floor(Math.random() * examples.length)]
+
         },
         scrollBottom(){
             this.$refs.discussion.scrollTop = this.$refs.discussion.scrollHeight;
