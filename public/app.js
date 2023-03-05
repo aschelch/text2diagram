@@ -5,7 +5,16 @@ document.addEventListener('alpine:init', () => {
         generating: false,
         text:'a class diagram of "Paul" and is child "Tom"',
         messages: [],
-
+        init(){
+            this.$watch('messages', () => {
+                this.$refs.mermaid.removeAttribute('data-processed')
+                mermaid.init(undefined, this.$refs.mermaid)
+                this.scrollBottom()
+            })
+        },
+        scrollBottom(){
+            this.$refs.discussion.scrollTop = this.$refs.discussion.scrollHeight;
+        },
         generate(){
             const input = this.text
             if(input == ''){return;}
