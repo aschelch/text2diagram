@@ -2,7 +2,7 @@
 
 An AI chatbot which generate diagram for you.
 
-
+![doc/screenshot.jpeg](doc/screenshot.jpeg)
 
 It uses OpenAI ChatGPT model to generate mermaid diagram.
 
